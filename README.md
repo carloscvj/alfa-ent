@@ -1,0 +1,2 @@
+# alfa-ent
+Entities comunes
