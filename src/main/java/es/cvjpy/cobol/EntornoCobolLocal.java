@@ -64,7 +64,7 @@ public class EntornoCobolLocal implements java.io.Serializable {
         if (COBRUN == null) {
             COBRUN = System.getenv("COBRUN");
             if (COBRUN == null) {
-                COBRUN = "cobrun";
+                COBRUN = "cobcrun";
             }
         }
         return COBRUN;
