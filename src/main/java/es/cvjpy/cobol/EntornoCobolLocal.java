@@ -16,13 +16,13 @@ public class EntornoCobolLocal implements java.io.Serializable {
     private final String base;
     private String LD_LIBRARY_PATH;
     private String COBDIR;
-    private String COBRUN;
     private String COBPATH = "";
     private String COBSW;
     private boolean COBDEBUG = false;
     private boolean montado = false;
     private String baseCOBPATH;
     private String instalacion;
+    private String cob_library_path;
     private String carpetaProyecto;
     private String viejos;
     private String alfa;
@@ -60,20 +60,6 @@ public class EntornoCobolLocal implements java.io.Serializable {
         this.COBDIR = COBDIR;
     }
 
-    public String getCOBRUN() {
-        if (COBRUN == null) {
-            COBRUN = System.getenv("COBRUN");
-            if (COBRUN == null) {
-                COBRUN = "cobcrun";
-            }
-        }
-        return COBRUN;
-    }
-
-    public void setCOBRUN(String COBRUN) {
-        this.COBRUN = COBRUN;
-    }
-
     public String getCOBPATH() {
         return COBPATH;
     }
@@ -96,14 +82,9 @@ public class EntornoCobolLocal implements java.io.Serializable {
         this.COBSW = COBSW;
     }
 
-    public String getCOBPROG() {
-        return "SRU";
-    }
-
     public void fromProperties(Properties prop) {
         LD_LIBRARY_PATH = prop.getProperty("LD_LIBRARY_PATH", this.getLD_LIBRARY_PATH());
         COBDIR = prop.getProperty("COBDIR", this.getCOBDIR());
-        COBRUN = prop.getProperty("COBRUN", "" + this.getCOBRUN());
         COBSW = prop.getProperty("COBSW", "" + this.getCOBSW());
         COBDEBUG = Boolean.parseBoolean(prop.getProperty("COBDEBUG", "" + this.isCOBDEBUG()));
     }
@@ -111,12 +92,11 @@ public class EntornoCobolLocal implements java.io.Serializable {
     public Properties toProperties(Properties prop) {
         prop.setProperty("LD_LIBRARY_PATH", this.getLD_LIBRARY_PATH());
         prop.setProperty("COBDIR", this.getCOBDIR());
-        prop.setProperty("COBRUN", "" + this.getCOBRUN());
         prop.setProperty("COBSW", "" + this.getCOBSW());
-        prop.setProperty("COBPROG", this.getCOBPROG());
         prop.setProperty("COBDEBUG", "" + this.isCOBDEBUG());
         prop.setProperty("COBPATH", "" + this.getCOBPATH());
         prop.setProperty("INSTALACION", this.getInstalacion());
+        prop.setProperty("COB_LIBRARY_PATH", this.getCob_library_path());
         prop.setProperty("VIEJOS", this.getViejos());
         prop.setProperty("ALFA", this.getAlfa());
         prop.setProperty("PATH", "" + this.getPATH());
@@ -158,6 +138,14 @@ public class EntornoCobolLocal implements java.io.Serializable {
             }
         }
         return instalacion;
+    }
+
+    public String getCob_library_path() {
+        return getInstalacion() + "/lib";
+    }
+
+    public void setCob_library_path(String cob_library_path) {
+        this.cob_library_path = cob_library_path;
     }
 
     public void setInstalacion(String instalacion) {
